@@ -9,6 +9,11 @@ app.get('/testing', (req, res) => {
   res.send('Testing Basic Route - Success');
 });
 
+// Home - http://localhost:3000
+app.get('/', (req, res) => {
+  res.send('Ecommerce Portfolio Proect');
+});
+
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);
 });

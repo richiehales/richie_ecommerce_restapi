@@ -22,9 +22,21 @@ async function getProductById(data) {
   }
 }
 
+async function getProductsByCategory(data) {
+  try{
+      const text = 'SELECT * FROM product WHERE category = $1;';
+      const inputs = [data];
+      const result = await query(text, inputs);
+      return result.rows;
+  } catch(err) {
+      throw err.stack;
+  }
+}
+
 module.exports = {
   getAllProducts,
-  getProductById
+  getProductById,
+  getProductsByCategory
 };
 
 

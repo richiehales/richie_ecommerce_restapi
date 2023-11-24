@@ -18,3 +18,7 @@
 
 1. See node_api_postgres in templates for routes & functions connected to a database.
 2. Basic get, post, put & delete functions - routes in index.js with functions in queries.js
+
+## node-postgres - official docs
+
+<https://node-postgres.com/apis/pool>

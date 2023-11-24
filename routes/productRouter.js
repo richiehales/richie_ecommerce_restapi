@@ -1,5 +1,5 @@
 const productRouter = require('express').Router();
-const productInstance = require('../databaseQuery/productQuery');
+const productInstance = require('../models/product.js');
 
 // Get all products
 // http://localhost:3000/product

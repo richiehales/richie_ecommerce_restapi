@@ -65,4 +65,33 @@ productRouter.delete('/:id', async (req, res) => {
 });
 
 
+// Add product to product table
+/*
+Postman - test
+POST    http://localhost:3000/product/addProduct
+Body:
+{
+  "name": "Socks 5", 
+  "price": 7.99, 
+  "description": "Lightweight and breathable socks",
+  "category": "socks"
+}
+*/
+productRouter.post('/addProduct', async (req, res) => {
+  try {
+    const { name, price, description, category } = req.body;
+
+    if (!name || !price || !description || !category) {
+      return res.status(400).send('Please provide name, price, description and category in the request body.');
+    }
+
+    await productInstance.addProduct(name, price, description, category);
+    res.send('Successfully inserted into product table.');
+  } catch (error) {
+    console.error('Error:', error); // Log the error to the console
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
 module.exports = productRouter

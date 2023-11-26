@@ -54,12 +54,30 @@ async function deleteProductById(data) {
   }
 }
 
+async function addProduct(name, price, description, category) {
+  try {
+   
+    // Add product to cart_product
+    await query(`
+      INSERT INTO product (name, price, description, category)
+      VALUES (
+        $1,
+        $2,
+        $3,
+        $4
+      )
+    `, [name, price, description, category]);
+  } catch (error) {
+    throw error.stack;
+  }
+}
 
 module.exports = {
   getAllProducts,
   getProductById,
   getProductsByCategory,
-  deleteProductById
+  deleteProductById,
+  addProduct
 };
 
 

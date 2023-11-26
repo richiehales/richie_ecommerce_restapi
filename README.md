@@ -25,6 +25,6 @@
 
 ## Next Steps
 
-1. Add Create and Delete to product table.
+1. Add Create, Update and Delete to product table.
 2. Add Delete and Update to cart & cart_product.
 3. Add Create, Update and Delete to user_info.

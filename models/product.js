@@ -33,10 +33,33 @@ async function getProductsByCategory(data) {
   }
 }
 
+// Delete product by id
+async function deleteProductById(data) {
+  try {
+    const text = 'DELETE FROM product WHERE id = $1 RETURNING *';
+    const inputs = [data];
+    const result = await query(text, inputs);
+
+    if (result.rows.length === 0) {
+      // Product with the given ID was not found
+      return null;
+    }
+
+    const deletedProduct = result.rows[0];
+    const successMessage = `Product with id = ${data} deleted from product table`;
+
+    return { successMessage, deletedProduct };
+  } catch (err) {
+    throw err.stack;
+  }
+}
+
+
 module.exports = {
   getAllProducts,
   getProductById,
-  getProductsByCategory
+  getProductsByCategory,
+  deleteProductById
 };
 
 

@@ -42,4 +42,27 @@ productRouter.get('/categories/:category', async (req, res) => {
   }
 })
 
+// Delete product by id
+// http://localhost:3000/product/3
+productRouter.delete('/:id', async (req, res) => {
+  let id = req.params.id;
+
+  try {
+    const deleteResult = await productInstance.deleteProductById(id);
+
+    if (!deleteResult) {
+      return res.status(404).send('Invalid product number');
+    }
+
+    // Access the success message and deleted product details
+    const { successMessage, deletedProduct } = deleteResult;
+
+    // Send the success message and deleted product details in the response
+    res.json({ message: successMessage, deletedProduct });
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+
 module.exports = productRouter

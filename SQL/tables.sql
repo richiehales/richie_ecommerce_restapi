@@ -22,14 +22,13 @@ CREATE TABLE product
 CREATE TABLE cart
 (
   id        SERIAL PRIMARY KEY,
-  user_id   integer REFERENCES user_info(id)
+  user_id   integer REFERENCES user_info(id) ON DELETE SET NULL
 );
-
 
 -- ****************** Create cart_product table
 CREATE TABLE cart_product
 (
-  cart_id     integer REFERENCES cart(id),
+  cart_id     integer REFERENCES cart(id) ON DELETE SET NULL,
   product_id  integer REFERENCES product(id),
   quantity    integer NOT NULL
 );

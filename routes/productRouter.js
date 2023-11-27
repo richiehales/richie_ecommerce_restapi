@@ -69,13 +69,7 @@ productRouter.delete('/:id', async (req, res) => {
 /*
 Postman - test
 POST    http://localhost:3000/product/addProduct
-Body:
-{
-  "name": "Socks 5", 
-  "price": 7.99, 
-  "description": "Lightweight and breathable socks",
-  "category": "socks"
-}
+Body: { "name": "Socks 5", "price": 7.99, "description": "Lightweight and breathable socks", "category": "socks" }
 */
 productRouter.post('/addProduct', async (req, res) => {
   try {
@@ -87,6 +81,36 @@ productRouter.post('/addProduct', async (req, res) => {
 
     await productInstance.addProduct(name, price, description, category);
     res.send('Successfully inserted into product table.');
+  } catch (error) {
+    console.error('Error:', error); // Log the error to the console
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+
+// Update product by id
+/*
+Postman - test
+PUT     http://localhost:3000/product/updateProduct/1
+Body: { "name": "Updated Socks", "price": 9.99, "description": "Updated description", "category": "updated-category" }
+*/
+productRouter.put('/updateProduct/:id', async (req, res) => {
+  let id = req.params.id;
+
+  try {
+    const { name, price, description, category } = req.body;
+
+    if (!name || !price || !description || !category) {
+      return res.status(400).send('Please provide name, price, description, and category in the request body.');
+    }
+
+    const updatedProduct = await productInstance.updateProductById(id, name, price, description, category);
+
+    if (!updatedProduct) {
+      return res.status(404).send('Invalid product number');
+    }
+
+    res.json({ message: 'Product updated successfully', updatedProduct });
   } catch (error) {
     console.error('Error:', error); // Log the error to the console
     res.status(500).send('Internal Server Error');

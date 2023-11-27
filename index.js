@@ -1,5 +1,6 @@
 const productRouter = require('./routes/productRouter');
 const cartRouter = require('./routes/cartRouter');
+const userRouter = require('./routes/userRouter');
 
 const express = require('express');
 const app = express();
@@ -22,4 +23,5 @@ app.listen(port, () => {
 app.use(express.json());
 app.use('/product', productRouter);
 app.use('/cart', cartRouter);
+app.use('/user', userRouter);
 

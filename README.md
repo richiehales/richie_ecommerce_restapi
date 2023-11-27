@@ -25,6 +25,11 @@
 
 ## Next Steps
 
-1. Add Create, Update and Delete to product table.
-2. Add Delete and Update to cart & cart_product.
-3. Add Create, Update and Delete to user_info.
+1. Add ~~Create~~, ~~Read~~, ~~Update~~ and ~~Delete~~ to product table.
+
+2. Add ~~Create~~, ~~Read~~, ~~Update~~ and ~~Delete~~ to user_info.
+
+3. Add Passport - https://www.codecademy.com/journeys/full-stack-engineer/paths/fscj-22-back-end-development/tracks/fscj-22-user-authentication-authorization/modules/wdcp-22-password-authentication-30a16b48-888f-41e2-8a0b-eae92c510255/lessons/passport-js-local-authentication/exercises/introduction-to-passport-js
+
+4. Add ~~Create~~, ~~Read~~, Update and Delete to cart & cart_product.
+

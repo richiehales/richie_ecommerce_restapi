@@ -31,7 +31,6 @@
 
 3. Add Passport - <https://www.codecademy.com/journeys/full-stack-engineer/paths/fscj-22-back-end-development/tracks/fscj-22-user-authentication-authorization/modules/wdcp-22-password-authentication-30a16b48-888f-41e2-8a0b-eae92c510255/lessons/passport-js-local-authentication/exercises/introduction-to-passport-js>
 
-4. Passport video - <https://www.youtube.com/watch?v=-RCnNyD0L-s>
+4. Passport video - <https://www.youtube.com/watch?v=-RCnNyD0L-s> Current = 11mins
 
-4. Add ~~Create~~, ~~Read~~, Update and Delete to cart & cart_product.
-
+5. Add ~~Create~~, ~~Read~~, Update and Delete to cart & cart_product.

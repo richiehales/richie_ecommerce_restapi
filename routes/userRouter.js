@@ -1,5 +1,31 @@
+const express = require('express');
 const userRouter = require('express').Router();
 const userInstance = require('../models/user.js');
+const app = express();
+
+// Allow info form login / register to be accessed
+app.use(express.urlencoded({ extended: false }))
+
+// Home page
+// http://localhost:3000/user/auth
+userRouter.get('/auth', (req, res) => {
+  res.render('index.ejs')
+});
+
+
+// Login page
+// http://localhost:3000/user/auth/login
+userRouter.get('/auth/login', (req, res) => {
+  res.render('login.ejs')
+});
+
+
+// Register page
+// http://localhost:3000/user/auth/register
+userRouter.get('/auth/register', (req, res) => {
+  res.render('register.ejs')
+});
+
 
 // Get all users
 // http://localhost:3000/user
@@ -7,7 +33,6 @@ userRouter.get('/', async (req, res) => {
 
   try{
       const userList = await userInstance.getAllUsers();
-      console.log(userList)
       res.json(userList); 
   } catch(err){
       res.status(400).send(err);
@@ -35,7 +60,6 @@ userRouter.get('/:id', async (req, res) => {
 // http://localhost:3000/user/email/user2@example.com
 userRouter.get('/email/:email', async (req, res) => {
   let email = req.params.email;
-  console.log("get by email run")
 
   try {
       const user = await userInstance.getUserByEmail(email);
@@ -129,5 +153,8 @@ userRouter.put('/updateUser/:id', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+
 
 module.exports = userRouter

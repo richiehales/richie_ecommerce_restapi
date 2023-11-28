@@ -1,30 +1,6 @@
 const express = require('express');
 const userRouter = require('express').Router();
 const userInstance = require('../models/user.js');
-const app = express();
-
-// Allow info form login / register to be accessed
-app.use(express.urlencoded({ extended: false }))
-
-// Home page
-// http://localhost:3000/user/auth
-userRouter.get('/auth', (req, res) => {
-  res.render('index.ejs')
-});
-
-
-// Login page
-// http://localhost:3000/user/auth/login
-userRouter.get('/auth/login', (req, res) => {
-  res.render('login.ejs')
-});
-
-
-// Register page
-// http://localhost:3000/user/auth/register
-userRouter.get('/auth/register', (req, res) => {
-  res.render('register.ejs')
-});
 
 
 // Get all users

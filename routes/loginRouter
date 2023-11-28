@@ -1,0 +1,30 @@
+const express = require('express');
+const loginRouter = require('express').Router();
+const loginInstance = require('../models/login.js');
+const app = express();
+
+// Allow info form login / register to be accessed
+app.use(express.urlencoded({ extended: false }))
+
+// Home page
+// http://localhost:3000/login/auth
+loginRouter.get('/auth', (req, res) => {
+  res.render('index.ejs')
+});
+
+
+// Login page
+// http://localhost:3000/login/auth/login
+loginRouter.get('/auth/login', (req, res) => {
+  res.render('login.ejs')
+});
+
+
+// Register page
+// http://localhost:3000/login/auth/register
+loginRouter.get('/auth/register', (req, res) => {
+  res.render('register.ejs')
+});
+
+
+module.exports = loginRouter

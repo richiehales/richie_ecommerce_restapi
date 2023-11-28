@@ -1,6 +1,7 @@
 const productRouter = require('./routes/productRouter');
 const cartRouter = require('./routes/cartRouter');
 const userRouter = require('./routes/userRouter');
+const loginRouter1 = require('./routes/loginRouter');
 
 const express = require('express');
 const app = express();
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use('/product', productRouter);
 app.use('/cart', cartRouter);
 app.use('/user', userRouter);
+app.use('/login', loginRouter1);
 
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);

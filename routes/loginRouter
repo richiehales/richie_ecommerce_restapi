@@ -4,6 +4,7 @@ const passport = require('passport');
 const initializePassport = require('../routes/passport-config');
 const { getUserByEmail, getUserById } = require('../models/user');
 const bcrypt = require('bcrypt');
+const loginInstance = require('../models/login.js');
 
 initializePassport(passport, getUserByEmail, getUserById);
 
@@ -21,21 +22,32 @@ loginRouter.get('/auth/register', checkNotAuthenticated, (req, res) => {
 });
 
 // Add / Register user to user_info table
-loginRouter.post('/auth/register', checkNotAuthenticated, async (req, res) => {
+loginRouter.post('/auth/register', async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 3);
-    const email = req.body.email;
-    const first_name = req.body.first_name;
-    const last_name = req.body.last_name;
+    const hashedPassword = await bcrypt.hash(req.body.password, 3)
+    const email = req.body.email
+    const first_name = req.body.first_name
+    const last_name = req.body.last_name
+
 
     if (!hashedPassword || !email || !first_name || !last_name) {
       return res.status(400).send('Please provide password, email, first_name and last_name in the request body.');
     }
 
-    // ... your registration logic ...
+    const registrationResult = await loginInstance.registerUser(hashedPassword, email, first_name, last_name);
 
+    if (registrationResult.success) {
+      // Successfully registered
+      console.log('success')
+      res.redirect('/login/auth/login');
+
+    } else {
+      // Failed registration
+      console.log('fail')
+      res.redirect('/login/auth/register')
+    }
   } catch (error) {
-    console.error('Error:', error);
+    console.error('Error:', error); // Log the error to the console
     res.status(500).send('Internal Server Error');
   }
 });

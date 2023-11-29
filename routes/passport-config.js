@@ -10,7 +10,6 @@ function initialize(passport, getUserByEmail, getUserById) {
     //console.log('User from authenticateUser:', user);
 
     if (!user || !user[0] || !user[0].password) {
-      console.log('User not found or password not set for email:', email);
       return done(null, false, { message: 'No user with that email or password not set' });
     }
 
@@ -20,7 +19,6 @@ function initialize(passport, getUserByEmail, getUserById) {
       if (passwordMatch) {
         return done(null, user[0]);
       } else {
-        console.log('Password does not match for email:', email);
         return done(null, false, { message: 'Password incorrect' });
       }
     } catch (e) {

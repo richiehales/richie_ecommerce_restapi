@@ -38,12 +38,10 @@ loginRouter.post('/auth/register', async (req, res) => {
 
     if (registrationResult.success) {
       // Successfully registered
-      console.log('success')
       res.redirect('/login/auth/login');
 
     } else {
       // Failed registration
-      console.log('fail')
       res.redirect('/login/auth/register')
     }
   } catch (error) {

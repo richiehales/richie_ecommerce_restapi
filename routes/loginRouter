@@ -1,68 +1,71 @@
 const express = require('express');
-const app = express();
-
-// Allow info form login / register .ejs to be accessed (req.body.first_name)
-app.use(express.urlencoded({ extended: false }))
-
-app.use(express.json()); 
 const loginRouter = express.Router();
-const loginInstance = require('../models/login.js');
-
+const passport = require('passport');
+const initializePassport = require('../routes/passport-config');
+const { getUserByEmail, getUserById } = require('../models/user');
 const bcrypt = require('bcrypt');
 
+initializePassport(passport, getUserByEmail, getUserById);
 
 
-// Display Home page
+// Display user 'logged in' page
 // http://localhost:3000/login/auth
-loginRouter.get('/auth', (req, res) => {
-  res.render('index.ejs')
+loginRouter.get('/auth', checkAuthenticated, (req, res) => {
+  res.render('index.ejs', { name: req.user.first_name });
 });
-
 
 // Display Register page
 // http://localhost:3000/login/auth/register
-loginRouter.get('/auth/register', (req, res) => {
-  res.render('register.ejs')
+loginRouter.get('/auth/register', checkNotAuthenticated, (req, res) => {
+  res.render('register.ejs');
 });
 
-
 // Add / Register user to user_info table
-loginRouter.post('/auth/register', async (req, res) => {
+loginRouter.post('/auth/register', checkNotAuthenticated, async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 3)
-    const email = req.body.email
-    const first_name = req.body.first_name
-    const last_name = req.body.last_name
-
+    const hashedPassword = await bcrypt.hash(req.body.password, 3);
+    const email = req.body.email;
+    const first_name = req.body.first_name;
+    const last_name = req.body.last_name;
 
     if (!hashedPassword || !email || !first_name || !last_name) {
       return res.status(400).send('Please provide password, email, first_name and last_name in the request body.');
     }
 
-    const registrationResult = await loginInstance.registerUser(hashedPassword, email, first_name, last_name);
+    // ... your registration logic ...
 
-    if (registrationResult.success) {
-      // Successfully registered
-      console.log('success')
-      res.redirect('/login/auth/login');
-
-    } else {
-      // Failed registration
-      console.log('fail')
-      res.redirect('/login/auth/register')
-    }
   } catch (error) {
-    console.error('Error:', error); // Log the error to the console
+    console.error('Error:', error);
     res.status(500).send('Internal Server Error');
   }
 });
 
-
 // Display Login page
 // http://localhost:3000/login/auth/login
-loginRouter.get('/auth/login', (req, res) => {
-  res.render('login.ejs')
+loginRouter.get('/auth/login', checkNotAuthenticated, (req, res) => {
+  res.render('login.ejs',);
 });
 
+// Handle login post request
+loginRouter.post('/auth/login', checkNotAuthenticated, passport.authenticate('local', {
+  successRedirect: '/login/auth',
+  failureRedirect: '/login/auth/login',
+  failureFlash: true
+}));
 
-module.exports = loginRouter
+
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next()
+  }
+  res.redirect('auth/login')
+}
+
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect('/login/auth')
+  }
+  next()
+}
+
+module.exports = loginRouter;

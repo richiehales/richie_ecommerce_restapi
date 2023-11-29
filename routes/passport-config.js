@@ -7,7 +7,7 @@ function initialize(passport, getUserByEmail, getUserById) {
   const authenticateUser = async (email, password, done) => {
     const user = await getUserByEmail(email);
 
-    console.log('User from authenticateUser:', user);
+    //console.log('User from authenticateUser:', user);
 
     if (!user || !user[0] || !user[0].password) {
       console.log('User not found or password not set for email:', email);

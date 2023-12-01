@@ -33,6 +33,6 @@
 
 4. Passport ~~~video~~~ - <https://www.youtube.com/watch?v=-RCnNyD0L-s> 
 
-5. Add ~~Create~~, Read, Update and Delete to cart & cart_product.
+5. Add ~~Create~~, ~~~Read~~~, Update and Delete to cart & cart_product.
 
 6. Shoppping cart video <https://www.youtube.com/watch?app=desktop&v=YeFzkC2awTM>

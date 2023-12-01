@@ -1,5 +1,36 @@
 const { query } = require('../db/db');
 
+
+// Get all baskets
+async function getAllBaskets() {
+  try{
+      const result = await query('SELECT * FROM basket',[]);
+      return result.rows;
+  } catch(err){
+      throw err.stack;
+  }
+}
+
+
+// Get basket by user_id
+async function getBasketByUserId(userId) {
+  try {
+    const text = `
+      SELECT basket.quantity, product.*
+      FROM basket
+      JOIN cart_user ON basket.cart_id = cart_user.id
+      JOIN product ON basket.product_id = product.id
+      WHERE cart_user.user_id = $1
+    `;
+    const inputs = [userId];
+    const result = await query(text, inputs);
+    return result.rows;
+  } catch (err) {
+    throw err.stack;
+  }
+}
+
+
 // Add user to cart and product to cart_product
 async function addUserAndProduct(userId, productId, quantity) {
   try {
@@ -25,5 +56,7 @@ async function addUserAndProduct(userId, productId, quantity) {
 }
 
 module.exports = {
-  addUserAndProduct,
+  getAllBaskets,
+  getBasketByUserId,
+  addUserAndProduct
 };

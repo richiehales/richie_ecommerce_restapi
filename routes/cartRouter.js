@@ -16,7 +16,7 @@ cartRouter.get('/', async (req, res) => {
 
 
 // Get basket by user_id
-// http://localhost:3000/basket/1
+// http://localhost:3000/cart/1
 cartRouter.get('/:id', async (req, res) => {
 
   let id = req.params.id;
@@ -54,6 +54,37 @@ cartRouter.post('/addUserAndProduct', async (req, res) => {
     res.send('Successfully inserted into cart and cart_product.');
   } catch (error) {
     res.status(500).send(error);
+  }
+});
+
+
+// Update basket by id
+/*
+Postman - test
+PUT     http://localhost:3000/cart/updateBasket/1
+Body: {"cart_id":1,"product_id":1,"quantity":100}   
+******* Depending on cart structure.info - Must update all id's correctly or can swap to another user basket through cart_id ******
+*/
+cartRouter.put('/updateBasket/:id', async (req, res) => {
+  let id = req.params.id;
+
+  try {
+    const { cart_id, product_id, quantity } = req.body;
+
+    if (!cart_id || !product_id || !quantity) {
+      return res.status(400).send('Please provide name, price, description, and category in the request body.');
+    }
+
+    const updatedCart = await cartInstance.updateBasketById(id, cart_id, product_id, quantity);
+
+    if (!updatedCart) {
+      return res.status(404).send('Invalid product number');
+    }
+
+    res.json({ message: 'Basket updated successfully', updatedCart });
+  } catch (error) {
+    console.error('Error:', error); // Log the error to the console
+    res.status(500).send('Internal Server Error');
   }
 });
 

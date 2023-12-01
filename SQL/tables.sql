@@ -25,9 +25,10 @@ CREATE TABLE cart_user -- was cart
   user_id   integer REFERENCES user_info(id) ON DELETE SET NULL
 );
 
--- ****************** Create cart_product table
+-- ****************** Create basket table
 CREATE TABLE basket -- was cart_product
 (
+  id          SERIAL PRIMARY KEY,
   cart_id     integer REFERENCES cart_user(id) ON DELETE SET NULL,
   product_id  integer REFERENCES product(id),
   quantity    integer NOT NULL

@@ -55,8 +55,35 @@ async function addUserAndProduct(userId, productId, quantity) {
   }
 }
 
+// Update basket by id
+async function updateBasketById(basket_id, cart_id, product_id, quantity) {
+  console.log(basket_id, cart_id, product_id, quantity)
+  try {
+    const text = `
+      UPDATE basket
+      SET cart_id = $2, product_id = $3, quantity = $4
+      WHERE id = $1
+      RETURNING *;
+`;
+
+  const inputs = [basket_id, cart_id, product_id, quantity];
+  const result = await query(text, inputs);
+
+    if (result.rows.length === 0) {
+      // Product with the given ID was not found
+      return null;
+    }
+
+    const updatedBasket = result.rows[0];
+    return updatedBasket;
+  } catch (err) {
+    throw err.stack;
+  }
+}
+
 module.exports = {
   getAllBaskets,
   getBasketByUserId,
-  addUserAndProduct
+  addUserAndProduct,
+  updateBasketById
 };

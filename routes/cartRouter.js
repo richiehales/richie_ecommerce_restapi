@@ -1,13 +1,13 @@
 const cartRouter = require('express').Router();
 const cartInstance = require('../models/cart.js');
 
-// Add user to cart and product to cart_product
+// Add user to cart_user and product/quatity to basket
 /*
 Postman - test
 POST    http://localhost:3000/cart/addUserAndProduct
 Body:
 {
-  "userId": 2,
+  "userId": 15,
   "productId": 19,
   "quantity": 11
 }
@@ -23,8 +23,7 @@ cartRouter.post('/addUserAndProduct', async (req, res) => {
     await cartInstance.addUserAndProduct(userId, productId, quantity);
     res.send('Successfully inserted into cart and cart_product.');
   } catch (error) {
-    console.error('Error:', error); // Log the error to the console
-    res.status(500).send('Internal Server Error');
+    res.status(500).send(error);
   }
 });
 

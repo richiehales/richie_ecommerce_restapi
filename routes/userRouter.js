@@ -70,7 +70,7 @@ userRouter.delete('/:id', async (req, res) => {
 });
 
 
-// Add / Register user to user_info table
+// Add / Register user to user_info table (Also in loginRouter - with HTML in views)
 /*
 Postman - test
 POST    http://localhost:3000/user/registerUser

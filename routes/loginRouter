@@ -21,7 +21,7 @@ loginRouter.get('/auth/register', checkNotAuthenticated, (req, res) => {
   res.render('register.ejs');
 });
 
-// Add / Register user to user_info table
+// Add / Register user to user_info table (Also in userRouter)
 loginRouter.post('/auth/register', async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 3)

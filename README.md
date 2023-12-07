@@ -27,12 +27,12 @@
 
 1. Add ~~Create~~, ~~Read~~, ~~Update~~ and ~~Delete~~ to product table.
 
-2. Add ~~Create~~, ~~Read~~, ~~Update~~ and ~~Delete~~ to user_info.
+2. Add ~~Create~~, ~~Read~~, ~~Update~~ and ~~Delete~~ (delete user info from cart when user deleted) to user_info.
 
 3. Add ~~~Passport.~~~
 
 4. Passport ~~~video~~~ - <https://www.youtube.com/watch?v=-RCnNyD0L-s> 
 
-5. Add ~~Create~~, ~~~Read~~~, Update and Delete to cart & cart_product.
+5. Add ~~Create~~, ~~~Read~~~, Update and Delete (delete user info from cart when user deleted) to cart & cart_product.
 
 6. Shoppping cart video <https://www.youtube.com/watch?app=desktop&v=YeFzkC2awTM>

@@ -37,9 +37,9 @@ Postman - test
 POST    http://localhost:3000/cart/addUserAndProduct
 Body:
 {
-  "userId": 15,
-  "productId": 19,
-  "quantity": 11
+  "userId": 1,
+  "productId": 2,
+  "quantity": 3
 }
 */
 cartRouter.post('/addUserAndProduct', async (req, res) => {
@@ -61,8 +61,8 @@ cartRouter.post('/addUserAndProduct', async (req, res) => {
 // Update basket by id
 /*
 Postman - test
-PUT     http://localhost:3000/cart/updateBasket/1
-Body: {"cart_id":1,"product_id":1,"quantity":100}   
+PUT     http://localhost:3000/cart/updateBasket/2
+Body: {"cart_id":1,"product_id":2,"quantity":100}   
 ******* Depending on cart structure.info - Must update all id's correctly or can swap to another user basket through cart_id ******
 */
 cartRouter.put('/updateBasket/:id', async (req, res) => {
@@ -78,7 +78,7 @@ cartRouter.put('/updateBasket/:id', async (req, res) => {
     const updatedCart = await cartInstance.updateBasketById(id, cart_id, product_id, quantity);
 
     if (!updatedCart) {
-      return res.status(404).send('Invalid product number');
+      return res.status(404).send('Invalid basket number');
     }
 
     res.json({ message: 'Basket updated successfully', updatedCart });
@@ -87,5 +87,34 @@ cartRouter.put('/updateBasket/:id', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
+// Delete cart item by id
+/*
+Postman - test
+DELETE    http://localhost:3000/cart/updateBasket/2
+*/
+cartRouter.delete('/updateBasket/:id', async (req, res) => {
+  console.log("delete request received in cartRouter.js")
+  let id = req.params.id;
+
+  try {
+    const deleteResult = await cartInstance.deleteCartItemById(id);
+
+    if (!deleteResult) {
+      return res.status(404).send('Invalid cart number');
+    }
+
+    // Access the success message and deleted product details
+    const { successMessage, deletedCartItem } = deleteResult;
+
+    // Send the success message and deleted product details in the response
+    res.json({ message: successMessage, deletedCartItem });
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
+
+
 
 module.exports = cartRouter;

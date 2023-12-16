@@ -57,7 +57,6 @@ async function addUserAndProduct(userId, productId, quantity) {
 
 // Update basket by id
 async function updateBasketById(basket_id, cart_id, product_id, quantity) {
-  console.log(basket_id, cart_id, product_id, quantity)
   try {
     const text = `
       UPDATE basket
@@ -81,9 +80,33 @@ async function updateBasketById(basket_id, cart_id, product_id, quantity) {
   }
 }
 
+// Delete cart item by basket
+async function deleteCartItemById(data) {
+  try {
+    const text = 'DELETE FROM basket WHERE id = $1 RETURNING *';
+    const inputs = [data];
+    const result = await query(text, inputs);
+
+    if (result.rows.length === 0) {
+      // Product with the given ID was not found
+      return null;
+    }
+
+    const deletedCartItem = result.rows[0];
+    const successMessage = `Cart Item with id = ${data} deleted from basket table`;
+
+    return { successMessage, deletedCartItem };
+  } catch (err) {
+    throw err.stack;
+  }
+}
+
+
 module.exports = {
   getAllBaskets,
   getBasketByUserId,
   addUserAndProduct,
+  updateBasketById,
+  deleteCartItemById,
   updateBasketById
 };

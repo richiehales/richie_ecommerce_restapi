@@ -34,5 +34,20 @@ CREATE TABLE basket -- was cart_product
   quantity    integer NOT NULL
 );
 
+-- ****************** Create order_user table
+CREATE TABLE order_user
+(
+  id        SERIAL PRIMARY KEY,
+  user_id   integer REFERENCES user_info(id) ON DELETE SET NULL,
+  order_date timestamp DEFAULT CURRENT_TIMESTAMP
+);
 
+-- ****************** Create order table (order_items)
+CREATE TABLE orders
+(
+  id          SERIAL PRIMARY KEY,
+  order_id    integer REFERENCES order_user(id) ON DELETE SET NULL,
+  product_id  integer REFERENCES product(id),
+  quantity    integer NOT NULL
+);
 

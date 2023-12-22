@@ -31,7 +31,7 @@ cartRouter.get('/:id', async (req, res) => {
 })
 
 
-// Add user to cart_user and product/quatity to basket
+// Add user to cart_user and product/quantity to basket
 /*
 Postman - test
 POST    http://localhost:3000/cart/addUserAndProduct

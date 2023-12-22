@@ -2,10 +2,6 @@
 
 <https://github.com/MaxwellHouston/e-commerce-API/blob/main/DB/SQL/tables.sql>
 
-## Build a Rest Api with NodeJS (JavaScript), Express, and PostgreSQL – Video
-
-<https://www.youtube.com/watch?v=DihOP19LQdg&t=378s>
-
 ## Database design sqlDBM
 
 <https://app.sqldbm.com/PostgreSQL/DatabaseExplorer/p280611#>
@@ -35,4 +31,4 @@
 
 5. Add ~~Create~~, ~~~Read~~~, ~~~Update~~~ and ~~~Delete~~ (delete user info from cart when user deleted) to cart & cart_product.
 
-6. Shoppping cart video <https://www.youtube.com/watch?app=desktop&v=YeFzkC2awTM>
+6. Update cart_id and order_id to cartUser_id id and orderUser_id or something better suited 

@@ -33,12 +33,10 @@ async function getOrderByUserId(userId) {
 
 // Add user to order_user and product/quantity to orders
 async function copyBasketToOrders(basketId) {
-  console.log(`Basket to orders run with ${basketId}`)
   try {
     // Get information from the basket
     const basketInfo = await query('SELECT * FROM basket WHERE id = $1', [basketId]);
-    
-    if (basketInfo.rows.length === 0) {
+        if (basketInfo.rows.length === 0) {
       return null; // Basket with the given ID not found
     }
 
@@ -64,7 +62,7 @@ async function copyBasketToOrders(basketId) {
     await query(`
       INSERT INTO orders (order_id, product_id, quantity)
       VALUES (
-        (SELECT id FROM order_user WHERE user_id = $1),
+        (SELECT id FROM order_user WHERE user_id = $1 ORDER BY user_id DESC LIMIT 1),
         $2,
         $3
       )

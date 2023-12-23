@@ -9,7 +9,7 @@ Body:
 {
   "paymentDetails": {
     "cardNumber": "1234123412341234",
-    "expiryDate": "02-24",
+    "expiryDate": "01-02-24",
     "cvc": "123"
   },
   "basketId": 1
@@ -25,15 +25,14 @@ checkoutRouter.post('/', async (req, res) => {
 
     res.send(result);
   } catch (error) {
-    
-    // Check if the error is an instance of your custom error
-    if (error.message === 'Invalid payment details. Please provide cardNumber, expiryDate, and cvc.') {
-      // Send the custom error message to Postman with a 400 status code
-      res.status(400).json({ error: error.message });
-    } else {
-      // Handle other errors as needed
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+    // Log the error for debugging purposes
+    console.error(error);
+
+    // Check if error is defined and has a 'stack' property
+    const errorMessage = error && error.stack ? error.stack : 'Unknown error';
+
+    // Send the error message
+    res.status(500).send(errorMessage);
   }
 });
 

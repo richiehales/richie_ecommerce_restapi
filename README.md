@@ -21,14 +21,5 @@
 
 ## Next Steps
 
-1. Add ~~Create~~, ~~Read~~, ~~Update~~ and ~~Delete~~ to product table.
-
-2. Add ~~Create~~, ~~Read~~, ~~Update~~ and ~~Delete~~ (delete user info from cart when user deleted) to user_info.
-
-3. Add ~~~Passport.~~~
-
-4. Passport ~~~video~~~ - <https://www.youtube.com/watch?v=-RCnNyD0L-s>
-
-5. Add ~~Create~~, ~~~Read~~~, ~~~Update~~~ and ~~~Delete~~ (delete user info from cart when user deleted) to cart & cart_product.
-
-6. Update cart_id and order_id to cartUser_id id and orderUser_id or something better suited 
+1. Check format checking in checkout.js
+2. Change basket to cart

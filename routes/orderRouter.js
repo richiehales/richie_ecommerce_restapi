@@ -31,9 +31,13 @@ orderRouter.get('/:id', async (req, res) => {
 })
 
 
-/// Copy basket item to order_user and orders when basket id
-// http://localhost:3000/order/copyBasketToOrders
-// Body: {"basketId": 1}
+// Copy basket item to order_user and orders when basket id
+/*
+Postman - test
+POST    http://localhost:3000/order/copyBasketToOrders
+Body:
+{"basketId": 1}
+*/
 orderRouter.post('/copyBasketToOrders', async (req, res) => {
   
   try {

@@ -12,6 +12,7 @@ const productRouter = require('./routes/productRouter');
 const cartRouter = require('./routes/cartRouter');
 const userRouter = require('./routes/userRouter');
 const orderRouter = require('./routes/orderRouter');
+const checkoutRouter = require('./routes/checkoutRouter');
 const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override')
@@ -47,6 +48,7 @@ app.use('/product', productRouter);
 app.use('/cart', cartRouter);
 app.use('/user', userRouter);
 app.use('/order', orderRouter);
+app.use('/checkout', checkoutRouter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

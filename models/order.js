@@ -33,10 +33,11 @@ async function getOrderByUserId(userId) {
 
 // Add user to order_user and product/quantity to orders
 async function copyBasketToOrders(basketId) {
+  console.log(`Basket to orders run with ${basketId}`)
   try {
     // Get information from the basket
     const basketInfo = await query('SELECT * FROM basket WHERE id = $1', [basketId]);
-
+    
     if (basketInfo.rows.length === 0) {
       return null; // Basket with the given ID not found
     }
@@ -45,13 +46,13 @@ async function copyBasketToOrders(basketId) {
 
     // Assuming cart_user has a user_id column, adjust as needed
     const cartUserInfo = await query('SELECT user_id FROM cart_user WHERE id = $1', [cart_id]);
+  
     
     if (cartUserInfo.rows.length === 0) {
       return 'User information not found for the associated cart.';
     }
 
     const userId = cartUserInfo.rows[0].user_id;
-    console.log(userId)
     // Insert into order_user if not exists
     await query(`
       INSERT INTO order_user (user_id)

@@ -1,36 +1,29 @@
-const { query } = require('../db/db');
 const orderInstance = require('./order.js');
 
 // Validate payment details and copy basket to orders
 async function processPaymentAndCheckout(paymentDetails, basketId) {
-  console.log(`Checkout Run`)
   try {
-    console.log(`Payment Run`)
     // Validate payment details
     const isValidPayment = await validatePaymentDetails(paymentDetails);
 
     if (!isValidPayment) {
-      console.log(`not valid`)
-      throw new Error('Invalid payment details.');
+      // Instead of re-throwing, return a response with a status code and error message
+      return { success: false, error: 'Invalid payment details. Please provide cardNumber, expiryDate, and cvc.' };
     }
-
-    // If payment details are valid, get the basketId from the request body
-    
-    console.log(basketId)
 
     // Call copyBasketToOrders function from orderInstance
     const result = await orderInstance.copyBasketToOrders(basketId);
 
-    return result;
-  } catch (error) {
-    throw error.stack;
+    return { success: true, result };
+
+  } catch (error) {  
+    // Return the error message in the response
+    return { success: false, error: error.message || 'Internal Server Error in checkout.js' };
   }
 }
 
-
 // Validate payment details
 async function validatePaymentDetails(paymentDetails) {
-  console.log(paymentDetails)
   try {
     // Check if required fields are present
     if (!paymentDetails || !paymentDetails.cardNumber || !paymentDetails.expiryDate || !paymentDetails.cvc) {
@@ -38,8 +31,8 @@ async function validatePaymentDetails(paymentDetails) {
     }
 
     // Check if card number is a 16-digit number
-    const cardNumberRegex = /^\d{16}$/;
-    if (!cardNumberRegex.test(paymentDetails.cardNumber)) {
+    // const cardNumberRegex = /^\d{16}$/;
+    if (paymentDetails.cardNumber.length !== 16) {
       throw new Error('Invalid card number. It should be a 16-digit number.');
     }
 
@@ -50,21 +43,21 @@ async function validatePaymentDetails(paymentDetails) {
     }
 
     // Check if cvc is a 3-digit number
-    const cvcRegex = /^\d{3}$/;
-    if (!cvcRegex.test(paymentDetails.cvc)) {
+    if (paymentDetails.cvc.length !== 3) {
       throw new Error('Invalid CVC. It should be a 3-digit number.');
     }
-
-    // Additional custom validations can be added as needed
-
     // If all validations pass, return true
     return true;
+
   } catch (error) {
-    // If any validation fails, return false and include the error message
-    return { isValid: false, error: error.message };
+    // If any validation fails, throw an error with the appropriate error message 
+    throw error; // re-throw the error
   }
 }
 
 module.exports = {
   processPaymentAndCheckout,
 };
+
+
+

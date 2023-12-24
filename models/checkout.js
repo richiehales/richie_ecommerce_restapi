@@ -13,7 +13,7 @@ async function processPaymentAndCheckout(paymentDetails, basketId) {
 
     // Call copyBasketToOrders function from orderInstance
     const result = await orderInstance.copyBasketToOrders(basketId);
-
+  
     return { success: true, result };
 
   } catch (error) {  

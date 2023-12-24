@@ -31,7 +31,7 @@ async function getOrderByUserId(userId) {
 }
 
 
-// Add user to order_user and product/quantity to orders
+// Add user to order_user and product/quantity to orders with basket Id
 async function copyBasketToOrders(basketId) {
   try {
     // Get information from the basket
@@ -41,10 +41,6 @@ async function copyBasketToOrders(basketId) {
     }
 
     const { cart_id, product_id, quantity } = basketInfo.rows[0];
-    console.log(cart_id)
-    console.log(product_id)
-    console.log(quantity)
-
 
     // Assuming cart_user has a user_id column, adjust as needed
     const cartUserInfo = await query('SELECT user_id FROM cart_user WHERE id = $1', [cart_id]);
@@ -81,8 +77,41 @@ async function copyBasketToOrders(basketId) {
   }
 }
 
+
+// Add user to order_user and product/quantity to orders by user_id
+async function copyBasketToOrdersUserId(userId) {
+  try {
+    // Insert into order_user
+    await query(`
+      INSERT INTO order_user (user_id)
+      SELECT DISTINCT cu.user_id
+      FROM cart_user cu
+      JOIN basket b ON cu.id = b.cart_id
+      WHERE cu.user_id = $1;
+    `, [userId]);
+
+    // Insert into orders
+    await query(`
+      INSERT INTO orders (order_id, product_id, quantity)
+      SELECT ou.id AS order_id, b.product_id, b.quantity
+      FROM order_user ou
+      JOIN cart_user cu ON ou.user_id = cu.user_id
+      JOIN basket b ON cu.id = b.cart_id
+      WHERE cu.user_id = $1;
+    `, [userId]);
+
+    // Delete entries from the basket table
+    await query('DELETE FROM basket WHERE cart_id IN (SELECT id FROM cart_user WHERE user_id = $1)', [userId]);
+
+    return 'Successfully copied from basket to order_user and orders.';
+  } catch (error) {
+    throw error.stack;
+  }
+}
+
 module.exports = {
   getAllOrders,
   getOrderByUserId,
-  copyBasketToOrders
+  copyBasketToOrders,
+  copyBasketToOrdersUserId
 };

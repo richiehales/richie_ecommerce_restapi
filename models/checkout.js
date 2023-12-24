@@ -1,26 +1,5 @@
 const orderInstance = require('./order.js');
 
-// Validate payment details and copy basket to orders
-async function processPaymentAndCheckout(paymentDetails, basketId) {
-  try {
-    // Validate payment details
-    const isValidPayment = await validatePaymentDetails(paymentDetails);
-
-    if (!isValidPayment) {
-      // Instead of re-throwing, return a response with a status code and error message
-      return { success: false, error: 'Invalid payment details. Please provide cardNumber, expiryDate, and cvc.' };
-    }
-
-    // Call copyBasketToOrders function from orderInstance
-    const result = await orderInstance.copyBasketToOrders(basketId);
-  
-    return { success: true, result };
-
-  } catch (error) {  
-    // Return the error message in the response
-    return { success: false, error: error.message || 'Internal Server Error in checkout.js' };
-  }
-}
 
 // Validate payment details
 async function validatePaymentDetails(paymentDetails) {
@@ -55,8 +34,57 @@ async function validatePaymentDetails(paymentDetails) {
   }
 }
 
+
+// Validate payment details and copy basket to orders with basket id
+async function processPaymentAndCheckout(paymentDetails, basketId) {
+  try {
+    // Validate payment details
+    const isValidPayment = await validatePaymentDetails(paymentDetails);
+
+    if (!isValidPayment) {
+      // Instead of re-throwing, return a response with a status code and error message
+      return { success: false, error: 'Invalid payment details. Please provide cardNumber, expiryDate, and cvc.' };
+    }
+
+    // Call copyBasketToOrders function from orderInstance
+    const result = await orderInstance.copyBasketToOrders(basketId);
+  
+    return { success: true, result };
+
+  } catch (error) {  
+    // Return the error message in the response
+    return { success: false, error: error.message || 'Internal Server Error in checkout.js' };
+  }
+}
+
+
+// Validate payment details and copy basket to orders with basket id
+async function processPaymentAndCheckoutAllItems(paymentDetails, userId) {
+  try {
+    // Validate payment details
+    const isValidPayment = await validatePaymentDetails(paymentDetails);
+
+    if (!isValidPayment) {
+      // Instead of re-throwing, return a response with a status code and error message
+      return { success: false, error: 'Invalid payment details. Please provide cardNumber, expiryDate, and cvc.' };
+    }
+
+    // Call copyBasketToOrdersUsersId function from orderInstance
+    const result = await orderInstance.copyBasketToOrdersUserId(userId);
+  
+    return { success: true, result };
+
+  } catch (error) {  
+    // Return the error message in the response
+    return { success: false, error: error.message || 'Internal Server Error in checkout.js' };
+  }
+}
+
+
+
 module.exports = {
   processPaymentAndCheckout,
+  processPaymentAndCheckoutAllItems
 };
 
 

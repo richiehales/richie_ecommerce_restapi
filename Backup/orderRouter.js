@@ -60,35 +60,6 @@ orderRouter.post('/copyBasketToOrders', async (req, res) => {
 });
 
 
-// Copy basket item to order_user and orders when user id
-/*
-Postman - test
-POST    http://localhost:3000/order/copyBasketToOrdersUserId
-Body:
-{"userId": 1}
-*/
-orderRouter.post('/copyBasketToOrdersUserId', async (req, res) => {
-  
-  try {
-    const { userId } = req.body;
-
-    if (!userId) {
-      return res.status(400).send('Please provide userId in the request body.');
-    }
-
-    const result = await orderInstance.copyBasketToOrdersUserId(userId);
-
-    if (!result) {
-      return res.status(404).send('Basket with the given ID not found.');
-    }
-
-    res.send(result);
-  } catch (error) {
-    res.status(500).send(error.stack);
-  }
-});
-
-
 module.exports = orderRouter;
 
 

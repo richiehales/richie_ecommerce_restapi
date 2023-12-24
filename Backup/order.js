@@ -41,6 +41,10 @@ async function copyBasketToOrders(basketId) {
     }
 
     const { cart_id, product_id, quantity } = basketInfo.rows[0];
+    console.log(cart_id)
+    console.log(product_id)
+    console.log(quantity)
+
 
     // Assuming cart_user has a user_id column, adjust as needed
     const cartUserInfo = await query('SELECT user_id FROM cart_user WHERE id = $1', [cart_id]);
@@ -54,15 +58,15 @@ async function copyBasketToOrders(basketId) {
     // Insert into order_user if not exists
     await query(`
       INSERT INTO order_user (user_id)
-      VALUES ($1)
-      
+      SELECT $1
+      WHERE NOT EXISTS (SELECT 1 FROM order_user WHERE user_id = $1);
     `, [userId]);
 
     // Add product to orders
     await query(`
       INSERT INTO orders (order_id, product_id, quantity)
       VALUES (
-        (SELECT id FROM order_user WHERE user_id = $1 ORDER BY user_id DESC LIMIT 1),
+        (SELECT id FROM order_user WHERE user_id = $1),
         $2,
         $3
       )

@@ -50,9 +50,9 @@ userRouter.get('/email/:email', async (req, res) => {
 // Delete user by id
 /*
 Postman - test
-DELETE    http://localhost:3000/user/3
+DELETE    http://localhost:3000/user/delete/3
 */
-userRouter.delete('/:id', async (req, res) => {
+userRouter.delete('/delete/:id', async (req, res) => {
   let id = req.params.id;
 
   try {

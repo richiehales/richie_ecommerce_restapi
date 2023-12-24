@@ -43,8 +43,8 @@ productRouter.get('/categories/:category', async (req, res) => {
 })
 
 // Delete product by id
-// http://localhost:3000/product/3
-productRouter.delete('/:id', async (req, res) => {
+// http://localhost:3000/product/delete/3
+productRouter.delete('/delete/:id', async (req, res) => {
   let id = req.params.id;
 
   try {

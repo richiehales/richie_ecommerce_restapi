@@ -92,9 +92,9 @@ cartRouter.put('/updateBasket/:id', async (req, res) => {
 // Delete cart item by id
 /*
 Postman - test
-DELETE    http://localhost:3000/cart/updateBasket/2
+DELETE    http://localhost:3000/cart/updateBasket/delete/2
 */
-cartRouter.delete('/updateBasket/:id', async (req, res) => {
+cartRouter.delete('/updateBasket/delete/:id', async (req, res) => {
   console.log("delete request received in cartRouter.js")
   let id = req.params.id;
 

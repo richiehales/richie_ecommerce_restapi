@@ -1,0 +1,342 @@
+openapi: 3.0.3
+info:
+  title: Ecommerce Portfolio Project (part one)
+  version: 1.0.0
+  description: Backend (part one) of the Codecademy ecommerce portfolio project
+paths:
+  /product:
+    summary: Get all product data.
+    description: Retrieves all products.
+    get:
+      summary: Gets product data.
+      description: Retrieve product data.
+      operationId: get_products
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Products
+  /product/{id}:
+    summary: Get product by id.
+    description: Retrieves the product with a specific id.
+    get:
+      summary: Get product by id.
+      description: Retrieves product with the given id.
+      operationId: get_product_by_id
+      parameters:
+        - name: id
+          in: path
+          description: ID of the product
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Products
+  /product/categories/{category}:
+    summary: Get products by category.
+    description: Retrieves products by a given category.
+    get:
+      summary: Get products by category.
+      description: Retrieves products by a given category.
+      operationId: get_products_by_category
+      parameters:
+        - name: category
+          in: path
+          description: Category of the product
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Products
+  /product/delete/{id}:
+    summary: Delete product by id,
+    description: Retrieves product by a given id
+    delete:
+      summary: Delete product by id.
+      description: Deletes poduct by a given id.
+      operationId: delete_product_by_id
+      parameters:
+        - name: id
+          in: path
+          description: Id of the product
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Products
+  /product/addProduct:
+    summary: Add a new product
+    description: Add a new product.
+    post:
+      summary: Add a new product
+      description: Add a new product
+      operationId: add_new_product
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Products
+  /product/updateProduct/{id}:
+    summary: Update product by id
+    description: Update product by given id.
+    put:
+      summary: Update existing product
+      description: Update existing product by given id
+      operationId: update_product
+      parameters:
+        - name: id
+          in: path
+          description: Id of the product
+          required: true
+          schema:
+            type: string
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Products
+  /user:
+    summary: Get all users
+    description: Retrieves all users.
+    get:
+      summary: Retrieves all users.
+      description: Retrieves all users.
+      operationId: get_users
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /user/{id}:
+    summary: Get user by id
+    description: Retrieves user by given id.
+    get:
+      summary: Get user details
+      description: Get user details by given id.
+      operationId: get_user_by_id
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /user/email/{email}:
+    summary: Get user by email
+    description: Get user by given email.
+    get:
+      summary: Get user by email
+      description: Get user by given email.
+      operationId: get_user_by_email
+      parameters:
+        - name: email
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /user/delete/{id}:
+    summary: Delete user by id
+    description: Delete user by given id.
+    delete:
+      summary: Delete user by id
+      description: Delete user by given id.
+      operationId: delete_user_by_id
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /user/registerUser:
+    summary: Register user
+    description: Register new user.
+    post:
+      summary: Register user
+      description: Register new user.
+      operationId: register_user
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /user/updateUser/{id}:
+    summary: Update user
+    description: Update current user details by given id.
+    put:
+      summary: Update user
+      description: Update current user details by given id.
+      operationId: update_user_by_id
+      parameters:
+        - name: id
+          in: path
+          description: ID of the user
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Users
+  /cart:
+    summary: Get all carts
+    description: Retrieves all carts.
+    get:
+      summary: Get all carts
+      description: Retrieves all carts.
+      operationId: get_all_carts
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Cart
+  /cart/{id}:
+    summary: Get cart by user_id
+    description: Retrieves cart by given user_id
+    get:
+      summary: Get cart by user_id
+      description: Retrieves cart by given user_id
+      operationId: get_cart_by_user_id
+      parameters:
+        - name: id
+          in: path
+          description: user_id for cart required
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Cart
+  /cart/addUserAndProduct:
+    summary: Add product to cart
+    description: Adds a product to cart by user_id
+    post:
+      summary: Add product to cart
+      description: Adds a product to cart by user_id.
+      operationId: add_product_to_cart
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Cart
+  /cart/updateBasket/{id}:
+    summary: Update basket
+    description: Update cart by id.
+    put:
+      summary: Update cart
+      description: Update cart by id.
+      operationId: update_cart_by_id
+      parameters:
+        - name: id
+          in: path
+          description: id for cart
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Cart
+  /cart/updateBasket/delete/{id}:
+    summary: Delete cart by id
+    description: Delete cart by given id.
+    delete:
+      summary: Delete cart by id
+      description: Delete cart by given id.
+      operationId: delete_cart_by_id
+      parameters:
+        - name: id
+          in: path
+          description: id for cart
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Cart
+  /order:
+    summary: Get all orders
+    description: Retrieves all orders
+    get:
+      summary: Get all orders
+      description: Retrieves all orders
+      operationId: get_all_orders
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Orders
+  /order/{id}:
+    summary: Get order by id
+    description: Retrieves order with given id.
+    get:
+      summary: Get order by user_id
+      description: Retrieves order with given user_id.
+      operationId: get_order_by_id
+      parameters:
+        - name: id
+          in: path
+          description: user_id for order required
+          required: true
+          schema:
+            type: integer
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Orders
+  /order/copyBasketToOrders:
+    summary: Move from cart to order - basketId
+    description: Copy from cart to order when purchased by basket id.
+    post:
+      summary: Move from cart to order - basketId
+      description: Copy from cart to order when purchased by basket id.
+      operationId: copy_cart_to_order_by_basket_id
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Orders
+  /order/copyBasketToOrdersUserId:
+    summary: Move from cart to order - userId
+    description: Copy from cart to order when purchased by user id.
+    post:
+      summary: Move from cart to order - userId
+      description: Copy from cart to order when purchased by user id.
+      operationId: copy_cart_to_order_by_user_id
+      responses:
+        default:
+          description: Default error sample response
+      tags:
+        - Orders

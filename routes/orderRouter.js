@@ -15,7 +15,7 @@ orderRouter.get('/', async (req, res) => {
 })
 
 
-// Get basket by user_id
+// Get order by user_id
 // http://localhost:3000/order/1
 orderRouter.get('/:id', async (req, res) => {
 

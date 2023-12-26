@@ -69,7 +69,7 @@ productRouter.delete('/delete/:id', async (req, res) => {
 /*
 Postman - test
 POST    http://localhost:3000/product/addProduct
-Body: { "name": "Socks 5", "price": 7.99, "description": "Lightweight and breathable socks", "category": "socks" }
+Body: { "name": "Socks 6", "price": 7.99, "description": "Lightweight and breathable socks", "category": "socks" }
 */
 productRouter.post('/addProduct', async (req, res) => {
   try {

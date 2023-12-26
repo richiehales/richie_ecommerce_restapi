@@ -85,6 +85,28 @@ paths:
           description: Default error sample response
       tags:
         - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+                description:
+                  type: string
+                category:
+                  type: string
+            examples:
+              example1:
+                value:
+                  name: "Socks 6"
+                  price: 7.99
+                  description: "Lightweight and breathable socks"
+                  category: "socks"
   /product/updateProduct/{id}:
     summary: Update product by id
     description: Update product by given id.
@@ -92,6 +114,9 @@ paths:
       summary: Update existing product
       description: Update existing product by given id
       operationId: update_product
+      responses:
+        default:
+          description: Default error sample response
       parameters:
         - name: id
           in: path
@@ -99,9 +124,28 @@ paths:
           required: true
           schema:
             type: string
-      responses:
-        default:
-          description: Default error sample response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+                description:
+                  type: string
+                category:
+                  type: string
+            examples:
+              example1:
+                value:
+                  name: "Updated Socks"
+                  price: 9.99
+                  description: "Updated description"
+                  category: "updated-category"
       tags:
         - Products
   /user:
@@ -180,6 +224,26 @@ paths:
       summary: Register user
       description: Register new user.
       operationId: register_user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: "password4"
+                email:
+                  type: string
+                  format: email
+                  example: "user4@example.com"
+                first_name:
+                  type: string
+                  example: "Richie"
+                last_name:
+                  type: string
+                  example: "Hales"
       responses:
         default:
           description: Default error sample response
@@ -199,6 +263,26 @@ paths:
           required: true
           schema:
             type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: "password4-Updated"
+                email:
+                  type: string
+                  format: email
+                  example: "user4@example.com-Updated"
+                first_name:
+                  type: string
+                  example: "Richie-Updated"
+                last_name:
+                  type: string
+                  example: "Hales-Updated"
       responses:
         default:
           description: Default error sample response
@@ -237,11 +321,30 @@ paths:
         - Cart
   /cart/addUserAndProduct:
     summary: Add product to cart
-    description: Adds a product to cart by user_id
+    description: Adds a product to the cart for a specific user by user_id.
     post:
       summary: Add product to cart
-      description: Adds a product to cart by user_id.
+      description: Adds a product to the cart for a specific user by user_id.
       operationId: add_product_to_cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  description: ID of the user
+                  example: 1
+                productId:
+                  type: integer
+                  description: ID of the product
+                  example: 2
+                quantity:
+                  type: integer
+                  description: Quantity of the product to add to the cart
+                  example: 3
       responses:
         default:
           description: Default error sample response
@@ -257,10 +360,29 @@ paths:
       parameters:
         - name: id
           in: path
-          description: id for cart
+          description: ID for the cart
           required: true
           schema:
             type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cart_id:
+                  type: integer
+                  description: ID of the cart
+                  example: 1
+                product_id:
+                  type: integer
+                  description: ID of the product
+                  example: 2
+                quantity:
+                  type: integer
+                  description: Quantity of the product in the cart
+                  example: 100
       responses:
         default:
           description: Default error sample response
@@ -323,6 +445,17 @@ paths:
       summary: Move from cart to order - basketId
       description: Copy from cart to order when purchased by basket id.
       operationId: copy_cart_to_order_by_basket_id
+      requestBody:
+        description: The basket ID to copy to orders
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                basketId:
+                  type: integer
+                  example: 1
       responses:
         default:
           description: Default error sample response
@@ -335,8 +468,20 @@ paths:
       summary: Move from cart to order - userId
       description: Copy from cart to order when purchased by user id.
       operationId: copy_cart_to_order_by_user_id
+      requestBody:
+        description: The user ID to copy to orders
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  example: 1
       responses:
         default:
           description: Default error sample response
       tags:
         - Orders
+
